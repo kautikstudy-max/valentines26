@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Princess 💓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #ff9a9e;
+            --secondary-color: #fad0c4;
+            --text-color: #555;
+            --accent-color: #ff6b6b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating background particles */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem 2rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .message-box {
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: 15px;
+            background-color: #fff0f0;
+            border: 2px dashed #ffcccb;
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            font-weight: 600;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .message-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .magic-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magic-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .magic-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Cute heart animation on click */
+        .click-heart {
+            position: absolute;
+            color: #ff4757;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: fly-up 1s ease-out forwards;
+        }
+
+        @keyframes fly-up {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="particles"></div>
+
+    <div class="container">
+        <h1>The Bad Day Button</h1>
+        <p class="subtitle">Press whenever you need a reminder 💓</p>
+        
+        <div class="message-box">
+            <p class="message-text" id="display-text">Click the button below...</p>
+        </div>
+
+        <button class="magic-button" onclick="generateMessage(event)">Tap for Magic ✨</button>
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+
+        // THE DATABASE OF MEMORIES & COMPLIMENTS
+        // I have pre-filled this with the specific details you shared about your relationship.
+        const messages = [
+            "Remember: You are the girl who crushed two dance performances while sick in another city. You are stronger than you think.",
+            "I still remember the first time I saw you in that green kurti. I knew then, and I know now—you are special.",
+            "Mudiyathu? More like... you can do absolutely anything you set your mind to.",
+            "Your motherly nature is a gift. The way you care for people is beautiful. Don't forget to care for yourself too.",
+            "Just a reminder: Your ambition is the sexiest thing about you. Never stop chasing those dreams.",
+            "From 'Thanks bruh' to this moment... I'm so glad our paths crossed.",
+            "Take a deep breath. You are safe. You are loved. You are enough.",
+            "I hope you're wearing your smile today. The one that lights up your whole face when you're excited.",
+            "Remember that maroon shirt you bought me? I still look at it and feel grateful for your love.",
+            "Even on your worst days, you are a masterpiece. A tired masterpiece is still a masterpiece.",
+            "Your random video notes always made my day 100x better. You have a spark that no one can dim.",
+            "You are a graceful, incredible Bharatanatyam dancer. The stage belongs to you.",
+            "Don't worry about being a burden. You could never be heavy to those who love you.",
+            "If the world feels loud today, just close your eyes and remember: I'm in your corner, cheering you on.",
+            "You have the prettiest eyes and the kindest heart. Don't let a bad day convince you otherwise."
+        ];
+
+        const textElement = document.getElementById('display-text');
+        let lastIndex = -1;
+
+        function generateMessage(event) {
+            // 1. Get a random message (ensure it's not the same as the last one)
+            let index;
+            do {
+                index = Math.floor(Math.random() * messages.length);
+            } while (index === lastIndex);
+            
+            lastIndex = index;
+
+            // 2. Animate text out
+            textElement.classList.remove('visible');
+
+            // 3. Change text and animate in after a brief delay
+            setTimeout(() => {
+                textElement.innerText = messages[index];
+                textElement.classList.add('visible');
+            }, 300);
+
+            // 4. Create floating heart effect at click position
+            createHeart(event.clientX, event.clientY);
+        }
+
+        function createHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.classList.add('click-heart');
+            heart.innerHTML = '❤';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+
+        // Generate background particles
+        const particleContainer = document.getElementById('particles');
+        for(let i=0; i<15; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.width = (Math.random() * 20 + 10) + 'px';
+            p.style.height = p.style.width;
+            p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            particleContainer.appendChild(p);
+        }
+
+    </script>
+</body>
+</html>
