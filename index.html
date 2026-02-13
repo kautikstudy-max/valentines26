@@ -3,167 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Princess 💓</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>For You</title>
     <style>
-        /* --- CSS STYLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
         :root {
             --primary-color: #ff9a9e;
-            --secondary-color: #fad0c4;
-            --text-color: #555;
-            --accent-color: #ff6b6b;
-            --white: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --bg-color: #fad0c4;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #333;
+            --us-color: #ff758c;
+            --her-color: #a18cd1;
         }
 
         body {
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
             height: 100vh;
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            position: relative; /* Needed for animation container positioning */
+        }
+
+        /* Container styling */
+        .container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            transition: transform 0.3s ease;
+            z-index: 10; /* Ensure card is above falling elements */
+        }
+
+        /* Intro Text */
+        .intro-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Toggle Switch Styling */
+        .toggle-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Floating background particles */
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 3rem 2rem;
+            margin-bottom: 25px;
+            background: #eee;
             border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
+            padding: 5px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        h1 {
-            color: var(--accent-color);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+        .toggle-btn {
+            border: none;
+            background: transparent;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #777;
         }
 
-        p.subtitle {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
+        .toggle-btn.active {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .message-box {
+        .toggle-btn.active.us-mode { color: var(--us-color); }
+        .toggle-btn.active.her-mode { color: var(--her-color); }
+
+        /* Quote Styling */
+        #quote-display {
+            font-size: 1.2rem;
             min-height: 120px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border-radius: 15px;
-            background-color: #fff0f0;
-            border: 2px dashed #ffcccb;
-        }
-
-        .message-text {
-            font-size: 1.1rem;
+            justify-content: center;
             color: var(--text-color);
-            font-weight: 600;
-            line-height: 1.5;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.5s ease;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .message-text.visible {
-            opacity: 1;
+        /* Button Styling */
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn:active {
             transform: translateY(0);
         }
 
-        .magic-button {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Quicksand', sans-serif;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+            #quote-display {
+                font-size: 1rem;
+            }
         }
 
-        .magic-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
-        }
-
-        .magic-button:active {
-            transform: translateY(1px);
-        }
-
-        /* Cute heart animation on click */
-        .click-heart {
+        /* --- NEW ADDITION: Falling Animation Styles --- */
+        .falling-item {
             position: absolute;
-            color: #ff4757;
-            font-size: 1.5rem;
-            pointer-events: none;
-            animation: fly-up 1s ease-out forwards;
+            top: -50px;
+            pointer-events: none; /* Ensures they don't interfere with clicks */
+            z-index: 1; /* Behind the main card */
+            animation: fall linear forwards;
+            user-select: none;
         }
 
-        @keyframes fly-up {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-            100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
-
     </style>
 </head>
 <body>
 
-    <div id="particles"></div>
-
     <div class="container">
-        <h1>The Bad Day Button</h1>
-        <p class="subtitle">Press whenever you need a reminder 💓</p>
+        <h2>Hey You</h2>
         
-        <div class="message-box">
-            <p class="message-text" id="display-text">Click the button below...</p>
+        <p class="intro-text">
+            I made this little space for you. Whenever you need a reminder of how great you are, or a memory of us, just click below.
+        </p>
+
+        <div class="toggle-container">
+            <button class="toggle-btn active us-mode" onclick="setMode('us')">☁️ Us</button>
+            <button class="toggle-btn" onclick="setMode('her')">✨ You</button>
         </div>
 
-        <button class="magic-button" onclick="generateMessage(event)">Tap for Magic ✨</button>
+        <div id="quote-display">
+            Click the button to start...
+        </div>
+
+        <button class="btn" onclick="newNote()">New Note</button>
     </div>
 
     <script>
-        /* --- JAVASCRIPT LOGIC --- */
+        // --- DATA COLLECTIONS ---
 
-        // THE DATABASE OF MEMORIES & COMPLIMENTS
-        // I have pre-filled this with the specific details you shared about your relationship.
-        const messages = [
+        const usLines = [
+            // Your Original 15 (Edited)
             "Remember: You are the girl who crushed two dance performances while sick in another city. You are stronger than you think.",
-            "I still remember the first time I saw you in that green kurti. I knew then, and I know now—you are special.",
+            "I still remember the first time I saw you in that green kurti. I knew then, and I know now you are special.",
             "Mudiyathu? More like... you can do absolutely anything you set your mind to.",
             "Your motherly nature is a gift. The way you care for people is beautiful. Don't forget to care for yourself too.",
             "Just a reminder: Your ambition is the sexiest thing about you. Never stop chasing those dreams.",
@@ -176,59 +186,186 @@
             "You are a graceful, incredible Bharatanatyam dancer. The stage belongs to you.",
             "Don't worry about being a burden. You could never be heavy to those who love you.",
             "If the world feels loud today, just close your eyes and remember: I'm in your corner, cheering you on.",
-            "You have the prettiest eyes and the kindest heart. Don't let a bad day convince you otherwise."
+            "You have the prettiest eyes and the kindest heart. Don't let a bad day convince you otherwise.",
+            
+            // The New 35 (Edited for context)
+            "Remember September '24? Going to Chennai by train just to see your face was the best decision I ever made.",
+            "Thinking about December '24. Watching you perform was magical. I was so proud you and i always will be.",
+            "Remember our first Valentine's? I built those websites just to see you smile.",
+            "April 30th, 8 AM. The look on your face when I surprised you in Chennai was worth everything.",
+            "Thinking about April 30th always brings a smile to my face. It was a perfect day.",
+            "Every time I wear that green shirt you gave me, I feel closer to you.",
+            "I wear the perfumes you gave me just so I can carry a part of you with me.",
+            "Thank you for always being in my corner. Your support means the world to me.",
+            "You have the purest heart I’ve ever known, and I’m lucky it chose me.",
+            "You care for me in ways I never knew I needed. Thank you.",
+            "My favorite place in the world is wherever you are (especially if it's Chennai).",
+            "I love that you are my best friend.",
+            "Just a reminder: You are the best thing that ever happened to me.",
+            "Your laugh is literally my favorite sound.",
+            "I appreciate everything you do, even the little things you think I don't notice.",
+            "Thinking about how beautiful you looked when I saw you perform.",
+            "No matter where you are, I'm cheering for you.",
+            "I love how much effort you put into the people you love.",
+            "You make me want to be better, just by being you.",
+            "I’m grateful for every single memory we made.",
+            "Seeing you happy is my favorite hobby.",
+            "I love how smart you are. It’s genuinely attractive.",
+            "Thank you for choosing me back then.",
+            "You are my calm and my excitement all wrapped in one.",
+            "I’ll never get tired of remembering our surprises.",
+            "You look so cute when you're focused on something.",
+            "I love that I can be myself around you.",
+            "The way you care about me is something I’ll never take for granted.",
+            "You are the most beautiful girl in the world, inside and out.",
+            "I will always cherish the memories we made in Chennai.",
+            "Your support is my biggest strength.",
+            "I love how cool and funny you are you always know how to get to me.",
+            "Everything is just better when we are together.",
+            "I’m so incredibly proud of you.",
+            "Just in case I haven't told you today: I care about you deeply."
         ];
 
-        const textElement = document.getElementById('display-text');
-        let lastIndex = -1;
+        const herLines = [
+            // 50 Personal Affirmations
+            "Breathe. You are doing enough. You are enough.",
+            "You are juggling TWO degrees. Do you realize how incredible that is?",
+            "You are so much stronger than you give yourself credit for.",
+            "Your anxiety is a liar. You are capable, loved, and safe.",
+            "Don't forget to be kind to yourself today. You deserve your own kindness.",
+            "You are a performer. You were born to shine.",
+            "Smart, beautiful, and talented. You really hit the jackpot.",
+            "Take a moment. Inhale. Exhale. You’ve got this.",
+            "Your hard work is paying off, even when you can’t see it yet.",
+            "You have a pure heart, and the world is better because you’re in it.",
+            "It’s okay to rest. You don’t have to conquer the world every single day.",
+            "You are not behind. You are exactly where you need to be.",
+            "Look in the mirror. That girl is a fighter and a queen.",
+            "Your dance is an expression of your soul, and it is beautiful.",
+            "You are naturally funny and cool never lose that spark.",
+            "Don't let the stress dim your light.",
+            "You’ve handled 100% of your bad days so far. You can handle this one too.",
+            "Your intelligence is one of your best features.",
+            "Be proud of how far you’ve come. I am.",
+            "You are allowed to take up space. You are allowed to be loud.",
+            "Trust your talent. You have it for a reason.",
+            "You make difficult things look easy.",
+            "Stop being so hard on yourself. You’re doing great.",
+            "You are more than your grades. You are more than your productivity.",
+            "Your potential is limitless.",
+            "It’s okay to ask for a break. It’s okay to slow down.",
+            "You radiate beauty, even when you're in sweatpants studying.",
+            "You are a masterpiece in progress.",
+            "Whatever is worrying you right now it will pass.",
+            "You have a magnetic personality. People love being around you.",
+            "Your dedication to your art (and your studies!) is inspiring.",
+            "Focus on one step at a time. You don't need to see the whole staircase.",
+            "You are worthy of all the good things coming your way.",
+            "Your smile lights up the room. Seriously.",
+            "You are brave for showing up every day.",
+            "Don't doubt your magic.",
+            "You are calm, you are centered, you are in control.",
+            "Your brain is sexy. Use it.",
+            "You are supported. You are loved. You are not alone.",
+            "Even on your off days, you are still amazing.",
+            "You are building a future that is going to be incredible.",
+            "Trust the timing of your life.",
+            "You are a total catch. Never forget that.",
+            "Your energy is contagious (in the best way).",
+            "Give yourself a hug from me.",
+            "You are creating a life you love, one day at a time.",
+            "Perfection is boring. You are real, and that’s better.",
+            "You are powerful.",
+            "Go show them what you’re made of.",
+            "I believe in you. Always."
+        ];
 
-        function generateMessage(event) {
-            // 1. Get a random message (ensure it's not the same as the last one)
-            let index;
-            do {
-                index = Math.floor(Math.random() * messages.length);
-            } while (index === lastIndex);
+        // --- LOGIC ---
+
+        let currentMode = 'us'; // Default mode
+        const display = document.getElementById('quote-display');
+        const usBtn = document.querySelector('.us-mode');
+        const herBtn = document.querySelector('.her-mode');
+
+        // Function to switch modes
+        function setMode(mode) {
+            currentMode = mode;
             
-            lastIndex = index;
+            // Update buttons
+            const buttons = document.querySelectorAll('.toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (mode === 'us') {
+                document.querySelector('.us-mode').classList.add('active');
+                display.innerText = "Click for a memory of us...";
+                document.body.style.background = "linear-gradient(120deg, #f6d365 0%, #fda085 100%)";
+                document.querySelector('.btn').style.backgroundColor = "#ff9a9e";
+            } else {
+                document.querySelector('.toggle-btn:not(.us-mode)').classList.add('active'); // Select the 'Her' button
+                display.innerText = "Click for a reminder for you...";
+                document.body.style.background = "linear-gradient(120deg, #a18cd1 0%, #fbc2eb 100%)";
+                document.querySelector('.btn').style.backgroundColor = "#a18cd1";
+            }
+        }
 
-            // 2. Animate text out
-            textElement.classList.remove('visible');
+        // Function to get a random note based on mode
+        function newNote() {
+            let options = [];
+            
+            if (currentMode === 'us') {
+                options = usLines;
+            } else {
+                options = herLines;
+            }
 
-            // 3. Change text and animate in after a brief delay
+            // Get random index
+            const randomIndex = Math.floor(Math.random() * options.length);
+            
+            // Fade out effect
+            display.style.opacity = 0;
+            
             setTimeout(() => {
-                textElement.innerText = messages[index];
-                textElement.classList.add('visible');
+                display.innerText = options[randomIndex];
+                display.style.opacity = 1;
             }, 300);
-
-            // 4. Create floating heart effect at click position
-            createHeart(event.clientX, event.clientY);
         }
 
-        function createHeart(x, y) {
-            const heart = document.createElement('div');
-            heart.classList.add('click-heart');
-            heart.innerHTML = '❤';
-            heart.style.left = x + 'px';
-            heart.style.top = y + 'px';
-            document.body.appendChild(heart);
+        // --- NEW ADDITION: Animation Script ---
+        function createFallingElement() {
+            const container = document.body;
+            const element = document.createElement('div');
+            element.classList.add('falling-item');
 
+            // Random emoji choice: hearts and sparkles
+            const emojis = ['💖', '✨', '❤️', '🌟', '💕', '✨'];
+            element.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+            // Random positioning and sizing
+            element.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+            const size = Math.random() * 20 + 10; // Size between 10px and 30px
+            element.style.fontSize = size + 'px';
+            
+            // Random fall duration between 4 and 8 seconds
+            const duration = Math.random() * 4 + 4; 
+            element.style.animationDuration = duration + 's';
+            
+            // Slight transparency variation
+            element.style.opacity = Math.random() * 0.5 + 0.4; 
+
+            container.appendChild(element);
+
+            // Remove element after animation ends to prevent memory leaks
             setTimeout(() => {
-                heart.remove();
-            }, 1000);
+                element.remove();
+            }, duration * 1000);
         }
 
-        // Generate background particles
-        const particleContainer = document.getElementById('particles');
-        for(let i=0; i<15; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.width = (Math.random() * 20 + 10) + 'px';
-            p.style.height = p.style.width;
-            p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            p.style.animationDelay = (Math.random() * 5) + 's';
-            particleContainer.appendChild(p);
-        }
+        // Initialize
+        window.onload = function() {
+           newNote();
+           // Start the falling animation loop (creates a new element every 400ms)
+           setInterval(createFallingElement, 400);
+        };
 
     </script>
 </body>
